@@ -3,17 +3,17 @@
  * - 학습지 사진은 여기서 다루지 않습니다(기기 안 IndexedDB에만 저장).
  * - 앱을 고친 뒤에는 VERSION 숫자를 올려야 새 버전이 설치됩니다.
  */
-const VERSION = 'amgissok-v1.1.1';
+const VERSION = 'amgissok-v1.1.4';
 const SHELL = [
   './',
   './index.html',
   './privacy.html',
   './manifest.webmanifest',
-  './icons/icon-192.png',
-  './icons/icon-512.png',
-  './icons/maskable-512.png',
-  './icons/apple-touch-icon.png',
-  './icons/favicon-32.png',
+  './icons/icon-192.png?v=2',
+  './icons/icon-512.png?v=2',
+  './icons/maskable-512.png?v=2',
+  './icons/apple-touch-icon.png?v=2',
+  './icons/favicon-32.png?v=2',
 ];
 const FONT_CACHE = 'amgissok-font';
 
