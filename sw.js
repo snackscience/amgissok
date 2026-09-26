@@ -3,7 +3,7 @@
  * - 학습지 사진은 여기서 다루지 않습니다(기기 안 IndexedDB에만 저장).
  * - 앱을 고친 뒤에는 VERSION 숫자를 올려야 새 버전이 설치됩니다.
  */
-const VERSION = 'amgissok-v1.1.0';
+const VERSION = 'amgissok-v1.1.1';
 const SHELL = [
   './',
   './index.html',
