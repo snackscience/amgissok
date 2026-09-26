@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#FFFFFF">
 <title>암기쏙</title>
+<meta name="description" content="형광펜이나 괄호로 표시한 곳을 가려 주는 암기장. 톡 누르면 정답이 쏙.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="암기쏙">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
   :root{
@@ -281,6 +289,40 @@
   .page{padding-top:var(--gap)}
   .grid{gap:var(--gap-card,18px)}
   @media (min-width:860px){.grid{--gap-card:22px}}
+  /* ===== 앱 설치 ===== */
+  .gnb-right{display:flex;gap:8px;align-items:center}
+  .gnb-btn.install{background:var(--v);color:#fff;box-shadow:0 3px 0 var(--v-d)}
+  .gnb-btn[hidden]{display:none}
+  .ios-steps{list-style:none;margin:0 6px 20px;padding:0;display:grid;gap:12px}
+  .ios-steps li{display:flex;align-items:center;gap:12px;font-size:15px;color:var(--ink2);line-height:1.5}
+  .ios-steps i{flex:none;width:30px;height:30px;border-radius:10px;background:var(--v-soft);color:var(--v-d);display:grid;place-items:center;font-style:normal;font-weight:900;font-size:13px}
+  .ios-steps b{color:var(--ink)}
+  .app-ic{display:flex;align-items:center;gap:12px;margin:0 6px 16px}
+  .app-ic img{width:52px;height:52px;border-radius:13px;box-shadow:var(--sh-sm)}
+  .app-ic b{display:block;font-size:17px;font-weight:900}
+  .app-ic small{color:var(--sub);font-size:13px}
+  /* ===== 헤더 캐릭터 ===== */
+  .hero-in,.hero-in[class]{flex-direction:row!important;align-items:flex-end;justify-content:space-between}
+  .hero-in > div:first-child{min-width:0}
+  .hero-mascot{position:relative;flex:none;display:flex;flex-direction:column;align-items:center;gap:8px}
+  .hero-mascot .bubble{position:relative;left:auto;top:auto;white-space:nowrap;text-align:center;line-height:1.35;font-size:12px;padding:8px 11px}
+  .hero-mascot .bubble::after{left:50%;margin-left:-6px}
+  .hero-mascot .mascot{width:72px;height:90px}
+  @media (min-width:600px){ .hero-mascot .mascot{width:92px;height:115px} .hero-mascot .bubble{font-size:13px;padding:9px 13px} }
+  @media (min-width:860px){ .hero-mascot{flex-direction:row;align-items:flex-end;gap:10px} .hero-mascot .bubble{order:-1;margin-bottom:70px} .hero-mascot .bubble::after{left:auto;right:-5px;bottom:14px;margin:0} .hero-mascot .mascot{width:110px;height:138px} }
+  @media (max-width:360px){ .hero-mascot .mascot{width:60px;height:75px} .hero-mascot .bubble{font-size:11px;padding:7px 9px} }
+  /* 만들기 카드: 버튼만 */
+  #cardMaker .maker{display:block;margin-top:4px}
+  #cardMaker .maker-btns{display:grid;gap:10px}
+  @media (min-width:860px){ #cardMaker .maker{margin-top:auto} #cardMaker{justify-content:flex-start} }
+  /* 캐릭터가 헤더 높이를 늘리지 않도록: 말풍선은 캐릭터 위에 띄움 */
+  @media (max-width:859px){
+    .hero-mascot{display:block}
+    .hero-mascot .bubble{position:absolute;right:-6px;bottom:calc(100% + 8px)}
+    .hero-mascot .bubble::after{left:auto;right:30px;margin:0}
+    .hero-mascot .mascot{display:block;width:68px;height:85px}
+  }
+  @media (max-width:360px){ .hero-mascot .mascot{width:58px;height:72px} }
 </style>
 </head>
 <body>
@@ -312,10 +354,16 @@
 <section id="v-home" class="view">
   <header class="gnb"><div class="gnb-in">
     <a class="wordmark" href="#home">School<span>Kit</span></a>
+    <div class="gnb-right">
+    <button class="gnb-btn install press" id="installBtn" hidden>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
+      앱 설치
+    </button>
     <button class="gnb-btn press" id="goSettings">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
       설정
     </button>
+    </div>
   </div></header>
 
   <section class="hero"><div class="hero-in">
@@ -323,6 +371,10 @@
       <span class="pill-badge"><i><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#3B2A8C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h7M14 4l6 6-9 9H5v-6z"/></svg></i>형광펜 · 괄호 암기장</span>
       <p class="tagline"><em>칠하고</em>, <em>가리고</em>, 쏙 외우는</p>
       <h1 class="title">암기<span>쏙</span></h1>
+    </div>
+    <div class="hero-mascot" aria-hidden="true">
+      <span class="bubble">표시한 곳,<br>내가 가려 줄게!</span>
+      <svg class="mascot" viewBox="0 0 80 100"><use href="#ssoki"/></svg>
     </div>
   </div></section>
 
@@ -333,10 +385,6 @@
           <h2 class="card-title">암기장 만들기</h2>
           <p class="card-sub">형광펜이나 (괄호)로 표시한 학습지를 찍어 주세요.</p>
           <div class="maker">
-            <div class="mascot-wrap">
-              <span class="bubble">표시한 곳, 내가 가려 줄게!</span>
-              <svg class="mascot" width="92" height="115"><use href="#ssoki"/></svg>
-            </div>
             <div class="maker-btns">
               <button class="btn primary big press" id="newSheet">
                 <span class="btn-ic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#3B2A8C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span>
@@ -554,9 +602,9 @@
 const APP = {
   id: 'amgissok',
   name: '암기쏙',
-  version: 'v1.0.0',
+  version: 'v1.1.1',
   // GitHub Pages에 올린 개인정보처리방침 주소로 바꿔 주세요
-  policyUrl: 'https://snackscience.github.io/amgissok/privacy.html',
+  policyUrl: 'privacy.html',
 };
 
 /* =====================================================================
@@ -1410,10 +1458,63 @@ function makeSample() {
   return c.toDataURL('image/jpeg', 0.9);
 }
 
+/* ---------- 앱 설치 (PWA) ---------- */
+const Install = (() => {
+  const btn = $('#installBtn');
+  const standalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  let deferred = null;
+
+  function sheetHtml(body) {
+    return `<div class="app-ic"><img src="icons/icon-192.png" alt=""><div><b>암기쏙</b><small>홈 화면에 앱으로 설치해요</small></div></div>${body}`;
+  }
+  function showIOSGuide() {
+    openSheet(sheetHtml(`<ol class="ios-steps">
+      <li><i>1</i><span>사파리 아래쪽 <b>공유 버튼</b>(네모에 위쪽 화살표)을 눌러요</span></li>
+      <li><i>2</i><span>목록을 내려 <b>홈 화면에 추가</b>를 눌러요</span></li>
+      <li><i>3</i><span>오른쪽 위 <b>추가</b>를 누르면 끝!</span></li>
+    </ol><button class="btn primary block press" id="iosOk">알겠어요</button>`));
+    $('#iosOk').onclick = closeSheet;
+  }
+  function showOtherGuide() {
+    openSheet(sheetHtml(`<ol class="ios-steps">
+      <li><i>1</i><span>브라우저 오른쪽 위 <b>⋮ 메뉴</b>를 눌러요</span></li>
+      <li><i>2</i><span><b>앱 설치</b> 또는 <b>홈 화면에 추가</b>를 눌러요</span></li>
+    </ol><button class="btn primary block press" id="iosOk">알겠어요</button>`));
+    $('#iosOk').onclick = closeSheet;
+  }
+
+  window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferred = e; btn.hidden = false; });
+  window.addEventListener('appinstalled', () => { deferred = null; btn.hidden = true; toast('홈 화면에 암기쏙이 설치됐어요'); });
+
+  btn.onclick = async () => {
+    if (deferred) {
+      deferred.prompt();
+      const { outcome } = await deferred.userChoice;
+      deferred = null;
+      if (outcome === 'accepted') btn.hidden = true;
+    } else if (isIOS) showIOSGuide();
+    else showOtherGuide();
+  };
+
+  function init() {
+    if (standalone()) { btn.hidden = true; return; }
+    // 아이폰은 설치 창이 자동으로 뜨지 않으므로 안내 버튼을 바로 보여 줌
+    if (isIOS && window.isSecureContext) btn.hidden = false;
+    if ('serviceWorker' in navigator && window.isSecureContext && location.protocol !== 'file:') {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    }
+    // 브라우저가 학습지를 임의로 지우지 않도록 요청
+    if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
+  }
+  return { init };
+})();
+
 /* ---------- 시작 ---------- */
 (async () => {
   $$('.ver').forEach(e => e.textContent = APP.version);
   $('#policyLink').href = APP.policyUrl;
+  Install.init();
   settings = await Store.getSettings(); applySettings();
   await refreshHome();
   history.replaceState({ view: 'home' }, '', '#home');
